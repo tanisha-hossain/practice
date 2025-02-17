@@ -1,4 +1,3 @@
-//DOES NOT WORK YET - UNFINISHED
 import java.util.*;
 public class Main
 {
@@ -15,28 +14,34 @@ public class Main
         char[] arr2 = displayed.toCharArray();
 
 
-        if(arr1.length==arr2.length){
+        if (arr1.length==arr2.length) {
             quiet = '-';
-        }
-        else{
-            for(int i = 0; i < arr2.length-1;i++){
-                for(int j = 0; j < arr1.length; j++){
-                    if(arr1[i]!=arr2[i] && arr1[i+1]==arr2[i]){
-                        quiet = arr1[i];
-                        break;
-                    }
-                }
-            }
-        }
-
-        for(int i = 0; i < arr2.length; i++){
-            for(int j = 0; j < arr1.length; j++){
-                if(quiet != arr1[i] && arr1[i]!=arr2[i]){
-                    sillyKey = arr1[i];
-                    sillyLetter = arr2[i];
+        } else {
+            boolean found = false;
+            for (int i = 0; i < arr2.length;i++) {
+                if (arr1[i]!=arr2[i] && arr1[i+1]==arr2[i]) {
+                    quiet = arr1[i];
+                    found = true;
                     break;
                 }
             }
+            if (!found) {
+                quiet = arr1[arr1.length - 1]; //last letter is quiet key
+            }
+        }
+
+        int arr1_indx = 0;
+        for (int i = 0; i < arr2.length; i++) {
+            while (quiet == arr1[arr1_indx] ) {
+                arr1_indx++;
+            }
+
+            if (arr1[arr1_indx]!=arr2[i]){
+                sillyKey = arr1[arr1_indx];
+                sillyLetter = arr2[i];
+                break;
+            }
+            arr1_indx++;
         }
 
 
